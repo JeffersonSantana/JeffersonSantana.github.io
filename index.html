@@ -6,10 +6,28 @@
     <style type="text/css">
       body {
         color: #707070;
+        height: 100%;
+        margin: 0;
+        background-image: url('bg.png');
+        background-size: cover;
+        background-position: top center;
+        height: 100%;
+        background-attachment: fixed;
       }
       .wrapper {
-        max-width: 1440px;
         margin: 0 auto;
+        display: flex;
+        width: 1440px;
+        height: 1024px;
+        padding: 80px 0px;
+        flex-direction: column;
+        align-items: center;
+        gap: 80px;
+      }
+      h1 {
+        width: 192px;
+        height: 106px;
+        flex-shrink: 0;
       }
       h2 {
         font-family: Inter;
@@ -41,27 +59,35 @@
       }
       .event {
         display: flex;
-        height: 80px;
+        width: 458.667px;
         padding: 16px;
         align-items: flex-start;
-        align-self: stretch;
+        gap: 16px;
         border-radius: 16px;
-        border: 1px solid #707070;
+        background: #000;
       }
       .hour {
+    display: flex;
+    width: 120px;
+    padding-right: 16px;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+    align-self: stretch;
+    border-right: 1px solid #FFF;
+    color: #F00;
+    font-family: Inter;
+    font-size: 36px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+      }
+      .event-col {
         display: flex;
-        padding-right: 16px;
-        justify-content: center;
-        align-items: center;
-        gap: 8px;
-        align-self: stretch;
-        border-right: 1px solid #707070;
-        color: #707070;
-        font-family: Inter;
-        font-size: 36px;
-        font-style: normal;
-        font-weight: 700;
-        line-height: normal;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 24px;
       }
       .event-name {
         display: flex;
@@ -93,8 +119,7 @@
   </head>
   <body>
     <div class="wrapper">
-      <h1>rFactor 2 - Day Planner - Race Control</h1>
-      <h2>Hoje</h2>
+      <h1><img src="logo-rf-planner.svg" alt="rF Planner Pro" /></h1>
       <div id="events-container"></div>
     </div>
     <script type="text/javascript">
@@ -251,10 +276,12 @@
           return `
             <div class="event">
               <p class="hour">${dateTime}</p>
-              <h2 class="event-name">${data.EventName}</h2>
-              <div class="car-track">
-                <div class="row-car-track"><img width="16px" height="16px" src="car-svgrepo-com.svg"/><p class="primary-content">${data.car}</p></div>
-                <div class="row-car-track"><img width="16px" height="16px" src="road-svgrepo-com.svg"/><p class="primary-content">${data.track}</p></div>
+              <div class="event-col">
+                <h2 class="event-name">${data.EventName}</h2>
+                <div class="car-track">
+                  <div class="row-car-track"><img width="16px" height="16px" src="car-svgrepo-com.svg"/><p class="primary-content">${data.car}</p></div>
+                  <div class="row-car-track"><img width="16px" height="16px" src="road-svgrepo-com.svg"/><p class="primary-content">${data.track}</p></div>
+                </div>
               </div>
             </div>
           `;
