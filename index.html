@@ -6,19 +6,12 @@
     <style type="text/css">
       body {
         color: #707070;
-        height: 100%;
+        font-size: 16px;
         margin: 0;
-        background-image: url('bg.png');
-        background-size: cover;
-        background-position: top center;
-        height: 100%;
-        background-attachment: fixed;
+        background-color: #333333;
       }
       .wrapper {
-        margin: 0 auto;
         display: flex;
-        width: 1440px;
-        height: 1024px;
         padding: 80px 0px;
         flex-direction: column;
         align-items: center;
@@ -31,57 +24,63 @@
       }
       h2 {
         font-family: Inter;
-        font-size: 22px;
+        font-size: 2.5em;
         font-style: normal;
         font-weight: 700;
         line-height: normal;
       }
       h3 {
         font-family: Inter;
-        font-size: 18px;
+        font-size: 2em;
         font-style: normal;
         font-weight: 400;
         line-height: normal;
       }
       .primary-content {
         font-family: Inter;
-        font-size: 16px;
+        font-size: 2em;
         font-style: normal;
         font-weight: 400;
         line-height: normal;
       }
       #events-container {
+        width: 100vw;
         display: flex;
         flex-direction: column;
         align-items: flex-start;
-        gap: 16px;
-        align-self: stretch;
+        gap: 40px;
+      }
+      .levels {
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+        gap: 40px;
+        flex: 1 0 0;
       }
       .event {
         display: flex;
-        width: 458.667px;
-        padding: 16px;
+        width: 100%;
         align-items: flex-start;
         gap: 16px;
         border-radius: 16px;
         background: #000;
       }
       .hour {
-    display: flex;
-    width: 120px;
-    padding-right: 16px;
-    justify-content: center;
-    align-items: center;
-    gap: 8px;
-    flex-shrink: 0;
-    align-self: stretch;
-    border-right: 1px solid #FFF;
-    color: #F00;
-    font-family: Inter;
-    font-size: 36px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
+        display: flex;
+        width: 120px;
+        padding-right: 16px;
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
+        flex-shrink: 0;
+        align-self: stretch;
+        border-right: 1px solid #FFF;
+        color: #F00;
+        font-family: Inter;
+        font-size: 3.5em;
+        font-style: normal;
+        font-weight: 700;
+        line-height: normal;
       }
       .event-col {
         display: flex;
@@ -120,7 +119,24 @@
   <body>
     <div class="wrapper">
       <h1><img src="logo-rf-planner.svg" alt="rF Planner Pro" /></h1>
-      <div id="events-container"></div>
+      <div id="events-container">
+
+ <!--          <div class="levels">
+            <div><h2>Iniciante |</h2><p>Corridas a cada 1 hora</p></div>
+            <div id="list-iniciante"></div>
+          </div>
+
+          <div class="levels">
+            <div><h2>Intermediário |</h2><p>Corridas a cada 1 hora</p></div>
+            <div id="list-intermediario"></div>
+          </div>
+
+          <div class="levels">
+            <div><h2>Avançado |</h2><p>Corridas a cada 2 hora</p></div>
+            <div id="list-avancado"></div>
+          </div> -->
+
+      </div>
     </div>
     <script type="text/javascript">
       /* exported gapiLoaded */
@@ -259,11 +275,14 @@
         }
 
         const events = response.result.items;
+        const listIniciante = document.getElementById('list-iniciante');
+        const listIntermediario = document.getElementById('list-intermediario');
+        const listAvancado = document.getElementById('list-avancado');
         const eventsContainer = document.getElementById('events-container');
-
+        const data = {};
         const html = events.map(event => {
           const dateTime = hour(event.start.dateTime);
-          const data = {};
+          
           preconfig.map(config => {
             if(event.summary === config.id) {
               data['id'] = config.id;
@@ -286,7 +305,19 @@
             </div>
           `;
         }).join('');
-        eventsContainer.innerHTML = html;
+
+        if(data.level === "beginner") {
+          eventsContainer.innerHTML = html;
+        }
+
+        if(data.level === "intermediate") {
+          eventsContainer.innerHTML = html;
+        }
+
+        if(data.level === "advanced") {
+          eventsContainer.innerHTML = html;
+        }
+        
       }
 
       function hour(dataHora) {
