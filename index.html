@@ -99,11 +99,14 @@
         display: flex;
         flex-direction: row;
         gap: 16px;
+        align-items: center;
+        box-sizing: border-box;
+        height: 32px;
       }
       .row-car-track p {
-        height: 24px;
         margin: 0;
         padding: 0;
+        text-transform: uppercase;
       }
     </style>
   </head>
@@ -171,7 +174,7 @@
           "level": "intermediate",
           "EventName": "Prototype Challenge",
           "car": "2 carros",
-          "track": "Daytona International Road Course",
+          "track": "Daytona International RC",
           "eventDuration": "50",
           "Rank Impact DR": "Low",
           "Rank Impact SR": "Very low"
@@ -289,8 +292,8 @@
               <div class="event-col">
                 <h2 class="event-name">${data.EventName}</h2>
                 <div class="car-track">
-                  <div class="row-car-track"><img width="24px" height="24px" src="./car-svgrepo-com.svg"/><p class="primary-content">${data.car}</p></div>
-                  <div class="row-car-track"><img width="24px" height="24px" src="./road-svgrepo-com.svg"/><p class="primary-content">${data.track}</p></div>
+                  <div class="row-car-track"><img width="32px" height="32px" src="./car-svgrepo-com.svg"/><p class="primary-content">${data.car}</p></div>
+                  <div class="row-car-track"><img width="32px" height="32px" src="./road-svgrepo-com.svg"/><p class="primary-content">${data.track}</p></div>
                 </div>
               </div>
             </div>
