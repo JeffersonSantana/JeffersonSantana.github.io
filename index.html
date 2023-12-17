@@ -7,44 +7,46 @@
       body {
         color: #707070;
         font-size: 16px;
+        font-family: sans-serif;
         margin: 0;
         background-color: #333333;
       }
       .wrapper {
         display: flex;
-        padding: 80px 0px;
+        padding: 80px 16px;
         flex-direction: column;
         align-items: center;
         gap: 80px;
       }
       h1 {
+        font-family: sans-serif;
         width: 192px;
         height: 106px;
         flex-shrink: 0;
       }
       h2 {
-        font-family: Inter;
+        font-family: sans-serif;
         font-size: 2.5em;
         font-style: normal;
         font-weight: 700;
         line-height: normal;
       }
       h3 {
-        font-family: Inter;
+        font-family: sans-serif;
         font-size: 2em;
         font-style: normal;
         font-weight: 400;
         line-height: normal;
       }
       .primary-content {
-        font-family: Inter;
-        font-size: 2em;
+        font-family: sans-serif;
+        font-size: 1.5em;
         font-style: normal;
         font-weight: 400;
         line-height: normal;
       }
       #events-container {
-        width: 100vw;
+        width: 100%;
         display: flex;
         flex-direction: column;
         align-items: flex-start;
@@ -58,21 +60,19 @@
         flex: 1 0 0;
       }
       .event {
+        box-sizing: border-box;
         display: flex;
         width: 100%;
         align-items: flex-start;
         gap: 16px;
         border-radius: 16px;
         background: #000;
+        padding: 0 56px;
       }
       .hour {
         display: flex;
-        width: 120px;
-        padding-right: 16px;
-        justify-content: center;
+        padding: 40px 64px 40px 0;
         align-items: center;
-        gap: 8px;
-        flex-shrink: 0;
         align-self: stretch;
         border-right: 1px solid #FFF;
         color: #F00;
@@ -81,33 +81,27 @@
         font-style: normal;
         font-weight: 700;
         line-height: normal;
+        margin: 0;
+      }
+      .event-name {
+        margin: 0;
       }
       .event-col {
         display: flex;
         flex-direction: column;
         align-items: flex-start;
         gap: 24px;
-      }
-      .event-name {
-        display: flex;
-        padding: 0px 32px;
-        justify-content: center;
-        align-items: center;
-        gap: 8px;
         align-self: stretch;
-        color: #707070;
+        justify-content: center;
       }
       .car-track {
         display: flex;
         flex-direction: column;
-        justify-content: center;
-        align-items: flex-start;
-        gap: 0;
+        gap: 8px;
       }
       .row-car-track {
         display: flex;
-        align-items: center;
-        gap: 8px;
+        flex-direction: row;
       }
       .row-car-track p {
         height: 24px;
@@ -298,8 +292,8 @@
               <div class="event-col">
                 <h2 class="event-name">${data.EventName}</h2>
                 <div class="car-track">
-                  <div class="row-car-track"><img width="16px" height="16px" src="car-svgrepo-com.svg"/><p class="primary-content">${data.car}</p></div>
-                  <div class="row-car-track"><img width="16px" height="16px" src="road-svgrepo-com.svg"/><p class="primary-content">${data.track}</p></div>
+                  <div class="row-car-track"><img width="24px" height="24px" src="./car-svgrepo-com.svg"/><p class="primary-content">${data.car}</p></div>
+                  <div class="row-car-track"><img width="24px" height="24px" src="./road-svgrepo-com.svg"/><p class="primary-content">${data.track}</p></div>
                 </div>
               </div>
             </div>
