@@ -139,28 +139,26 @@
       <h1><img src="logo-rf-planner.svg" alt="rF Planner Pro" /></h1>
       <div id="events-container">
 
- <!--          <div class="levels">
-            <div><h2>Iniciante |</h2><p>Corridas a cada 1 hora</p></div>
-            <div id="list-iniciante"></div>
-          </div>
+        <!--
+        <div class="levels">
+          <div><h2>Iniciante |</h2><p>Corridas a cada 1 hora</p></div>
+          <div id="list-iniciante"></div>
+        </div>
 
-          <div class="levels">
-            <div><h2>Intermediário |</h2><p>Corridas a cada 1 hora</p></div>
-            <div id="list-intermediario"></div>
-          </div>
+        <div class="levels">
+          <div><h2>Intermediário |</h2><p>Corridas a cada 1 hora</p></div>
+          <div id="list-intermediario"></div>
+        </div>
 
-          <div class="levels">
-            <div><h2>Avançado |</h2><p>Corridas a cada 2 hora</p></div>
-            <div id="list-avancado"></div>
-          </div> -->
+        <div class="levels">
+          <div><h2>Avançado |</h2><p>Corridas a cada 2 hora</p></div>
+          <div id="list-avancado"></div>
+        </div>
+        -->
 
       </div>
     </div>
     <script type="text/javascript">
-      /* exported gapiLoaded */
-      /* exported gisLoaded */
-      /* exported handleAuthClick */
-      /* exported handleSignoutClick */
 
       const preconfig = [
         {
@@ -335,7 +333,7 @@
                   <div class="row-car-track"><img width="32px" height="32px" src="./road-svgrepo-com.svg"/><p class="primary-content">${data.track}</p></div>
                 </div>
               </div>
-              <button class="agendar">Agendar</button>
+              <button class="agendar" data-info='{"event-name": ${data.EventName}}'>Agendar</button>
             </div>
           `;
         }).join('');
@@ -351,6 +349,13 @@
         if(data.level === "advanced") {
           eventsContainer.innerHTML = html;
         }
+
+        document.querySelectorAll('.agendar').forEach(botao => {
+          botao.addEventListener('click', function(event) {
+            //this.getAttribute('data-info')
+            iniciarAutenticacao();
+          });
+        });
         
       }
 
@@ -358,6 +363,54 @@
         const data = new Date(dataHora);
         return data.toLocaleTimeString('pt-BR', { hour: 'numeric', minute: 'numeric' })
       }
+
+      function iniciarAutenticacao() {
+        const SCOPES2 = 'https://www.googleapis.com/auth/calendar';
+
+        gapi.auth.authorize({
+          client_id: CLIENT_ID,
+          scope: SCOPES2,
+          immediate: false
+        }, function(authResult) {
+          if (authResult && !authResult.error) {
+            // Autenticação bem-sucedida, criar o evento
+            criarEvento(authResult.access_token);
+          } else {
+            // Tratar erro de autenticação
+            console.error('Erro ao autenticar:', authResult.error);
+          }
+        });
+      }
+
+      // Função para criar um evento na agenda do usuário
+      function criarEvento(access_token) {
+        const calendar = gapi.client.calendar;
+        
+        const evento = {
+          'summary': 'Reunião Importante',
+          'location': 'Local da Reunião',
+          'description': 'Discussão sobre o projeto X',
+          'start': {
+            'dateTime': '2023-12-25T09:00:00-03:00',
+            'timeZone': 'America/Sao_Paulo',
+          },
+          'end': {
+            'dateTime': '2023-12-25T10:00:00-03:00',
+            'timeZone': 'America/Sao_Paulo',
+          },
+        };
+
+        calendar.events.insert({
+          calendarId: 'primary',
+          resource: evento,
+          auth: access_token
+        }).then(eventoCriado => {
+          console.log('Evento criado:', eventoCriado.result.htmlLink);
+        }).catch(err => {
+          console.error('Erro ao criar evento:', err);
+        });
+      }
+
     </script>
     <script async defer src="https://apis.google.com/js/api.js" onload="gapiLoaded()"></script>
     <script async defer src="https://accounts.google.com/gsi/client" onload="gisLoaded()"></script>
